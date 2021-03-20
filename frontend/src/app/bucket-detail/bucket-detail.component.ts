@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { BucketsService } from '../buckets.service';
 import { Bucket } from '../bucket.model';
+import { Object } from '../object.model';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -11,9 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BucketDetailComponent implements OnInit {
   bucket: Bucket;
+  title = '';
   loading = true;
   cardShowing = 'files';
-  files = [];
+  files: Object[] = [];
   bucketStorage = 0;
   error = '';
 
@@ -21,12 +23,18 @@ export class BucketDetailComponent implements OnInit {
 
   ngOnInit(): void {
     let id = this.route.snapshot.params.id;
+
+    this.bucketsService.getObjects(id).subscribe((res) => {
+      this.files = res.objects
+    }, () => {
+      console.log('Error while fetching objects from the bucket');
+    })
+
     this.bucketsService.getBucket(id).subscribe((res) => {
       this.bucket = res.bucket;
-      this.loading = false;
-      this.error = '';
+      this.title = res.bucket.name;
     }, () => {
-      this.error = 'Error while fetching bucket'
+      console.log('Error while fetching bucket');
     })
   }
 

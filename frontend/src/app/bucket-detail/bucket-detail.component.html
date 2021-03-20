@@ -1,4 +1,4 @@
-<h1>Bucket: {{bucket.name}}</h1>
+<h1>Bucket: {{ title }}</h1>
 <ul class="nav nav-tabs">
   <li class="nav-item">
     <a class="nav-link" (click)="cardShowing='files'" [ngClass]="{'active': cardShowing=='files'}">Files</a>
@@ -33,7 +33,7 @@
       <tbody>
       <tr *ngFor="let file of files">
         <td>{{ file.name }}</td>
-        <td>{{ file.last_modified | date }}</td>
+        <td>{{ file.modified | date }}</td>
         <td>{{ file.size }}</td>
       </tr>
       </tbody>
