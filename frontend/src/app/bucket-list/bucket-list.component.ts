@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Bucket } from '../bucket.model';
+import { BucketsService } from '../buckets.service';
 
 @Component({
   selector: 'app-bucket-list',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BucketListComponent implements OnInit {
 
-  constructor() { }
+  buckets: Bucket[] = [];
+  loading = true;
+  error = '';
+
+  constructor(private bucketsService: BucketsService) { }
 
   ngOnInit(): void {
+    this.bucketsService.getBuckets().subscribe((res) => {
+      this.buckets = res.buckets;
+      this.loading = false;
+      this.error = '';
+    }, () => {
+      this.error = 'Error loading buckets';
+    })
   }
 
 }

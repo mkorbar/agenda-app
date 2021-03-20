@@ -1,1 +1,26 @@
-<p>bucket-list works!</p>
+<h1>Bucket list</h1>
+
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <p>All buckets ({{buckets.length}})</p>
+    </div>
+
+    <table class="table table-striped mt-3" *ngIf="buckets.length else noBucketsBlock">
+      <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Location</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bucket of buckets">
+        <td><a [routerLink]="['/buckets', bucket.id]">{{bucket.name}}</a></td>
+        <td>{{bucket.location.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noBucketsBlock><p>There was no buckets found.</p></ng-template>
+  </div>
+</div>
