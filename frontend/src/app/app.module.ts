@@ -5,11 +5,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BucketListComponent } from './bucket-list/bucket-list.component';
+import { BucketDetailComponent } from './bucket-detail/bucket-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BucketListComponent
+    BucketListComponent,
+    BucketDetailComponent
   ],
   imports: [
     BrowserModule,
