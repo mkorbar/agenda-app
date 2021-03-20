@@ -14,4 +14,8 @@ export class BucketsService {
   getBuckets() {
     return this.http.get<{ buckets: Bucket[] }>(this.baseUrl + '/buckets');
   }
+
+  getBucket(id: string) {
+    return this.http.get<{ bucket: Bucket }>(this.baseUrl + '/buckets/' + id);
+  }
 }

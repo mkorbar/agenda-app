@@ -1,1 +1,63 @@
-<p>bucket-detail works!</p>
+<h1>Bucket: {{bucket.name}}</h1>
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link" (click)="cardShowing='files'" [ngClass]="{'active': cardShowing=='files'}">Files</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" (click)="cardShowing='details'" [ngClass]="{'active': cardShowing=='details'}">Details</a>
+  </li>
+</ul>
+<div class="card" *ngIf="cardShowing==='files'">
+  <div class="card-body">
+    <div class="d-flex flex-wrap">
+      <div class="flex-fill">
+        <p>All files ({{files.length}})</p>
+      </div>
+      <div class="mb-3">
+        <button class="btn btn-danger mr-3">Delete object</button>
+        <button class="btn btn-primary" (click)="fileInput.click()">
+          <span>Upload object</span>
+          <input #fileInput type="file" style="display:none;" />
+        </button>
+      </div>
+    </div>
+
+    <table class="table table-striped mt-3" *ngIf="files.length else noFilesBlock">
+      <thead>
+      <tr>
+        <th scope="col" class="w-50">Name</th>
+        <th scope="col">Last modified</th>
+        <th scope="col">Size</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let file of files">
+        <td>{{ file.name }}</td>
+        <td>{{ file.last_modified | date }}</td>
+        <td>{{ file.size }}</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <ng-template #noFilesBlock><p>There was no files found.</p></ng-template>
+
+  </div>
+</div>
+
+<div class="card" *ngIf="cardShowing==='details'">
+  <div class="card-body d-flex flex-wrap">
+    <dl class="row flex-fill">
+      <dt class="col-4">Bucket name:</dt>
+      <dd class="col-8">{{bucket.name}}</dd>
+
+      <dt class="col-4">Location:</dt>
+      <dd class="col-8">{{bucket.location.name}}</dd>
+
+      <dt class="col-4">Storage size:</dt>
+      <dd class="col-8">{{ bucketStorage }}</dd>
+    </dl>
+    <div>
+      <button class="btn btn-danger">Delete this bucket</button>
+    </div>
+  </div>
+</div>
