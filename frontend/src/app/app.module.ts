@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BucketListComponent } from './bucket-list/bucket-list.component';
 import { BucketDetailComponent } from './bucket-detail/bucket-detail.component';
+import { NgxFilesizeModule } from 'ngx-filesize';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { BucketDetailComponent } from './bucket-detail/bucket-detail.component';
   imports: [
     BrowserModule,
     HttpClientModule,
+    NgxFilesizeModule,
     AppRoutingModule
   ],
   providers: [],

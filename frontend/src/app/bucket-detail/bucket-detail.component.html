@@ -34,7 +34,7 @@
       <tr *ngFor="let file of files">
         <td>{{ file.name }}</td>
         <td>{{ file.modified | date }}</td>
-        <td>{{ file.size }}</td>
+        <td>{{ file.size | filesize }}</td>
       </tr>
       </tbody>
     </table>
@@ -54,7 +54,7 @@
       <dd class="col-8">{{bucket.location.name}}</dd>
 
       <dt class="col-4">Storage size:</dt>
-      <dd class="col-8">{{ bucketStorage }}</dd>
+      <dd class="col-8">{{ bucketStorage | filesize }}</dd>
     </dl>
     <div>
       <button class="btn btn-danger">Delete this bucket</button>

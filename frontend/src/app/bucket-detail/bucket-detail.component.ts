@@ -26,6 +26,7 @@ export class BucketDetailComponent implements OnInit {
 
     this.bucketsService.getObjects(id).subscribe((res) => {
       this.files = res.objects
+      this.bucketStorage = res.objects.map(obj => obj.size).reduce((a, b) => a + b, 0);
     }, () => {
       console.log('Error while fetching objects from the bucket');
     })
