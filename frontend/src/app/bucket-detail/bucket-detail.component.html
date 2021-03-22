@@ -14,7 +14,7 @@
         <p>All files ({{files.length}})</p>
       </div>
       <div class="mb-3">
-        <button class="btn btn-danger mr-3">Delete object</button>
+        <button class="btn btn-danger mr-3" (click)="onFileDelete()">Delete object</button>
         <button class="btn btn-primary" (click)="fileInput.click()">
           <span>Upload object</span>
           <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
@@ -57,7 +57,7 @@
       <dd class="col-8">{{ bucketStorage | filesize }}</dd>
     </dl>
     <div>
-      <button class="btn btn-danger">Delete this bucket</button>
+      <button class="btn btn-danger" (click)="onBucketDelete()">Delete this bucket</button>
     </div>
   </div>
 </div>
