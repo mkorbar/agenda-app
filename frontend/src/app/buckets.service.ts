@@ -45,7 +45,7 @@ export class BucketsService {
   }
 
   postBucket(bucketName: string, bucketLocation: Location) {
-    return this.http.post<{ bucket: Bucket }>(
+    return this.http.post<{ bucket: { _id: string, name: string, location: Location } }>(
       this.baseUrl + '/buckets/',
       {
         bucketName: bucketName,

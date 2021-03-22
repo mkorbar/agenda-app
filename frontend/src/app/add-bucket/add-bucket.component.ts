@@ -33,7 +33,11 @@ export class AddBucketComponent implements OnInit {
     this.bucketService.postBucket(this.bucketName, this.bucketLocation)
       .subscribe(
         data => {
-          this.bucketCreated.emit(data.bucket);
+          this.bucketCreated.emit({
+            id: data.bucket._id,
+            name: data.bucket.name,
+            location: data.bucket.location
+          });
         }
       );
   }
