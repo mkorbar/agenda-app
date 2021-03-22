@@ -32,8 +32,8 @@ export class BucketDetailComponent implements OnInit {
     })
 
     this.bucketsService.getBucket(id).subscribe((res) => {
-      this.bucket = res.bucket;
-      this.title = res.bucket.name;
+      this.bucket = res;
+      this.title = res.name;
     }, () => {
       console.log('Error while fetching bucket');
     })
