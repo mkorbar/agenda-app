@@ -54,7 +54,15 @@ router.get("/:id", bucketExists, (req, res, next) => {
 });
 
 router.delete("/:id", bucketExists, (req, res, next) => {
-  res.status(204).send();
+  Bucket.deleteOne({ _id: req.params.id })
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch(() => {
+      res.status(500).json({
+        message: "Error while deleteing bucket",
+      });;
+    });;
 });
 
 router.get("/:id/objects", bucketExists, (req, res, next) => {
