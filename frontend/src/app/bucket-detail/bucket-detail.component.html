@@ -17,7 +17,7 @@
         <button class="btn btn-danger mr-3">Delete object</button>
         <button class="btn btn-primary" (click)="fileInput.click()">
           <span>Upload object</span>
-          <input #fileInput type="file" style="display:none;" />
+          <input #fileInput type="file" (change)="onFileInput($event)" style="display:none;" />
         </button>
       </div>
     </div>

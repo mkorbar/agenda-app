@@ -39,4 +39,12 @@ export class BucketDetailComponent implements OnInit {
     })
   }
 
+  onFileInput($event) {
+    this.bucketsService.postObject(this.bucket.id, $event.target.files[0])
+      .subscribe(data => {
+        console.log('BE returned: ', data.object);
+        this.files.push(data.object);
+      });
+  }
+
 }

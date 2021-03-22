@@ -23,4 +23,13 @@ export class BucketsService {
   getObjects(bucketId: string) {
     return this.http.get<{ objects: Object[] }>(this.baseUrl + '/buckets/' + bucketId + '/objects');
   }
+
+  postObject(bucketId: string, uploadFile: File) {
+    const objectData = new FormData();
+    objectData.append('uploadFile', uploadFile);
+    return this.http.post<{ message: string, object: any }>(
+      this.baseUrl + '/buckets/' + bucketId + '/objects',
+      objectData
+    );
+  }
 }
