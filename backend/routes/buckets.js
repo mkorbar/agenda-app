@@ -14,48 +14,42 @@ router.get("", (req, res, next) => {
 });
 
 router.post("", (req, res, next) => {
-    const bucket = new Bucket({
-      name: req.body.name,
-      location: {
-        id: '1234_test_id_1234',
-        name: 'London',
-      },
-    });
-    bucket
-      .save()
-      .then((createdBucket) => {
-        res.status(201).json({
-          message: "Bucket created successfully",
-          object: createdBucket,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Creating a bucket failed with error: " + err,
-        });
+  const bucket = new Bucket({
+    name: req.body.bucketName,
+    location: {
+      id: req.body.bucketLocation.id,
+      name: req.body.bucketLocation.name,
+    },
+  });
+  bucket
+    .save()
+    .then((createdBucket) => {
+      res.status(201).json({
+        bucket: createdBucket,
       });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Creating a bucket failed with error: " + err,
+      });
+    });
 });
 
 let bucketExists = (req, res, next) => {
-  // TODO: use dynamic
-  if (req.params.id !== "my-first-bucket") {
-    return res.status(404).json({
-      message: "bucket not found",
+  Bucket.countDocuments({_id: req.params.id})
+    .then((count) => {
+      next();
+    })
+    .catch(err => {
+      res.status(404).json({ message: 'Document not found'});
     });
-  }
-  next();
 };
 
 router.get("/:id", bucketExists, (req, res, next) => {
-  res.status(200).json({
-    bucket: {
-      id: req.params.id,
-      name: "my-awesome-bucket",
-      location: {
-        id: "a0c51094-05d9-465f-8745-6cd9ee45b96d",
-        name: "Test Bucket",
-      },
-    },
+  Bucket.findOne({ _id: req.params.id }).then((document) => {
+    res.status(200).json({
+      bucket: document,
+    });
   });
 });
 
@@ -64,7 +58,7 @@ router.delete("/:id", bucketExists, (req, res, next) => {
 });
 
 router.get("/:id/objects", bucketExists, (req, res, next) => {
-  const objectsQuery = FileObject.find();
+  const objectsQuery = FileObject.find({ bucket: req.params.id });
   objectsQuery
     .then((documents) => {
       res.status(200).json({
@@ -73,7 +67,7 @@ router.get("/:id/objects", bucketExists, (req, res, next) => {
     })
     .catch(() => {
       res.status(500).json({
-        err: 'Error fetching objects'
+        err: "Error fetching objects",
       });
     });
 });

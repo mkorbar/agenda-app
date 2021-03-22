@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 const buckets = require("./routes/buckets");
 const locations = require("./routes/locations");
@@ -19,6 +20,8 @@ mongoose
   .catch(() => {
     console.error("Database connection failed!");
   });
+
+app.use(bodyParser.json());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
