@@ -1,9 +1,12 @@
 <h1>Bucket list</h1>
 
+<app-add-bucket *ngIf="displayAddBucket" (bucketCreated)="newBucket($event)"></app-add-bucket>
+
 <div class="card">
   <div class="card-body">
     <div class="d-flex justify-content-between">
       <p>All buckets ({{buckets.length}})</p>
+      <button class="btn btn-primary" *ngIf="!displayAddBucket" (click)="displayAddBucket=true">Create new bucket</button>
     </div>
 
     <table class="table table-striped mt-3" *ngIf="buckets.length else noBucketsBlock">

@@ -12,6 +12,7 @@ export class BucketListComponent implements OnInit {
   buckets: Bucket[] = [];
   loading = true;
   error = '';
+  displayAddBucket = false;
 
   constructor(private bucketsService: BucketsService) { }
 
@@ -25,4 +26,8 @@ export class BucketListComponent implements OnInit {
     })
   }
 
+  newBucket(bucket: Bucket): void {
+    this.displayAddBucket = false;
+    this.buckets.push(bucket);
+  }
 }

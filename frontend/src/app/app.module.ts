@@ -7,15 +7,19 @@ import { AppComponent } from './app.component';
 import { BucketListComponent } from './bucket-list/bucket-list.component';
 import { BucketDetailComponent } from './bucket-detail/bucket-detail.component';
 import { NgxFilesizeModule } from 'ngx-filesize';
+import { AddBucketComponent } from './add-bucket/add-bucket.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     BucketListComponent,
-    BucketDetailComponent
+    BucketDetailComponent,
+    AddBucketComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     NgxFilesizeModule,
     AppRoutingModule
