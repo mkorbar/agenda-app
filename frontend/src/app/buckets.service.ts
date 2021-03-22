@@ -54,9 +54,15 @@ export class BucketsService {
     );
   }
 
+  deleteBucket(bucketId) {
+    return this.http.delete(this.baseUrl + '/buckets/' + bucketId);
+  }
+
   getObjects(bucketId: string) {
     return this.http.get<{ objects: Object[] }>(this.baseUrl + '/buckets/' + bucketId + '/objects');
   }
+
+
 
   postObject(bucketId: string, uploadFile: File) {
     const objectData = new FormData();
@@ -64,10 +70,14 @@ export class BucketsService {
     return this.http.post<{ message: string, object: any }>(
       this.baseUrl + '/buckets/' + bucketId + '/objects',
       objectData
-    );
+      );
+    }
+
+  deleteObject(bucketId, objectId) {
+    return this.http.delete(this.baseUrl + '/buckets/' + bucketId + '/object/' + objectId);
   }
 
-  getLocations() {
-    return this.http.get<{ locations: Location[] }>(this.baseUrl + '/locations/');
-  }
+    getLocations() {
+      return this.http.get<{ locations: Location[] }>(this.baseUrl + '/locations/');
+    }
 }
