@@ -26,7 +26,7 @@ export class BucketDetailComponent implements OnInit {
 
     this.bucketsService.getObjects(id).subscribe((res) => {
       this.files = res.objects
-      this.bucketStorage = res.objects.map(obj => obj.size).reduce((a, b) => a + b, 0);
+      this.bucketStorage = res.objects.map(obj => obj.size).reduce((a, b) => a + b);
     }, () => {
       console.log('Error while fetching objects from the bucket');
     })
@@ -42,8 +42,8 @@ export class BucketDetailComponent implements OnInit {
   onFileInput($event) {
     this.bucketsService.postObject(this.bucket.id, $event.target.files[0])
       .subscribe(data => {
-        console.log('BE returned: ', data.object);
         this.files.push(data.object);
+        this.bucketStorage = this.files.map(obj => obj.size).reduce((a, b) => a + b);
       });
   }
 
